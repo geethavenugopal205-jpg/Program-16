@@ -1,0 +1,35 @@
+class Solution:
+    def findTwoElement(self, arr):
+        n = len(arr)
+        
+        # Expected sums
+        sn = n * (n + 1) // 2
+        s2n = n * (n + 1) * (2 * n + 1) // 6
+        
+        # Actual sums from the array
+        s = 0
+        s2 = 0
+        for x in arr:
+            s += x
+            s2 += x * x
+            
+        # val1 = x - y
+        val1 = s - sn
+        
+        # val2 = x^2 - y^2 = (x - y)(x + y)
+        val2 = s2 - s2n
+        
+        # Find x + y by dividing val2 by val1
+        # (x + y) = (x^2 - y^2) / (x - y)
+        val2 = val2 // val1
+        
+        # x = ((x - y) + (x + y)) / 2
+        repeating = (val1 + val2) // 2
+        
+        # y = x - (x - y)
+        missing = repeating - val1
+        
+        return [repeating, missing]
+
+
+
